@@ -4,5 +4,6 @@ import game.basic.GameCard;
 
 import java.util.ArrayList;
 
-public class PlayerHand extends ArrayList<GameCard> {
+public class PlayerHand extends ArrayList<GameCard>
+{
 }

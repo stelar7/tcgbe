@@ -1,5 +1,6 @@
 package game.enums;
 
-public enum GameCardType {
+public enum GameCardType
+{
     DIGIMON, DIGITAMA, TAMER, OPTION;
 }

@@ -1,5 +1,6 @@
 package game.enums;
 
-public enum YesNo {
+public enum YesNo
+{
     YES, NO
 }

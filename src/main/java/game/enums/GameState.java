@@ -1,6 +1,7 @@
 package game.enums;
 
-public enum GameState {
+public enum GameState
+{
     WAITING,
     INIT,
     SETUP, MULLIGAN,

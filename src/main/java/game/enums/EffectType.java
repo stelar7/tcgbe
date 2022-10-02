@@ -1,5 +1,6 @@
 package game.enums;
 
-public enum EffectType {
+public enum EffectType
+{
     GAME_RULES, EFFECT
 }

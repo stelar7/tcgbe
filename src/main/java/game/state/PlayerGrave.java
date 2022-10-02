@@ -4,5 +4,6 @@ import game.basic.GameCard;
 
 import java.util.ArrayList;
 
-public class PlayerGrave extends ArrayList<GameCard> {
+public class PlayerGrave extends ArrayList<GameCard>
+{
 }

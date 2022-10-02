@@ -1,5 +1,6 @@
 package game.enums;
 
-public enum SuspendState {
+public enum SuspendState
+{
     SUSPENDED, UNSUSPENDED;
 }

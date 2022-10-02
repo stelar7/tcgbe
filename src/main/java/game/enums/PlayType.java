@@ -1,5 +1,6 @@
 package game.enums;
 
-public enum PlayType {
+public enum PlayType
+{
     HAND, EFFECT, HATCH
 }
