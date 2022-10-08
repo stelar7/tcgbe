@@ -17,7 +17,6 @@ public class MessageCoder implements Encoder.Text<Packet>, Decoder.Text<Packet>
     @Override
     public Packet decode(String s) throws DecodeException
     {
-        System.out.println(s);
         return gson.fromJson(s, Packet.class);
     }
     

@@ -2,6 +2,7 @@ package socket;
 
 import com.google.gson.*;
 import game.*;
+import game.basic.GameCard;
 
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -9,15 +10,16 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.*;
 import java.util.Map.Entry;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 @ServerEndpoint(value = "/game", decoders = MessageCoder.class, encoders = MessageCoder.class)
 public class ControllerEndpoint
 {
     private static final Gson gson = new Gson();
     
-    public static  String     assetToken = "ABC-123";
-    private static JsonObject allCache   = null;
+    public static String assetToken = "ABC-123";
+    
+    private static Map<String, JsonElement> cardCache = new HashMap<>();
     
     private static final Map<String, String>      allowedLogins = Map.of("stelar7", "steffen1", "gandlaf", "gandlaf");
     private static final Queue<String>            matchmaking   = new ArrayDeque<>();
@@ -25,6 +27,37 @@ public class ControllerEndpoint
     private static final Map<String, Game>        sessionGames  = new HashMap<>();
     
     private static final String assetPath = "C:\\Users\\stelar7\\Desktop\\digimon\\assets\\data";
+    
+    static
+    {
+        JsonObject object = new JsonObject();
+        JsonArray  items  = new JsonArray();
+        try (Stream<Path> paths = Files.walk(Paths.get(assetPath)))
+        {
+            paths.forEach(p -> {
+                if (Files.isDirectory(p))
+                {
+                    return;
+                }
+                
+                try
+                {
+                    String      content = Files.readString(p);
+                    JsonElement val     = JsonParser.parseString(content);
+                    cardCache.put(val.getAsJsonObject().get("card_number").getAsString(), val);
+                    items.add(content);
+                } catch (IOException e)
+                {
+                    throw new RuntimeException(e);
+                }
+            });
+        } catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+        
+        cardCache.put("all", items);
+    }
     
     
     @OnOpen
@@ -36,7 +69,7 @@ public class ControllerEndpoint
     @OnMessage
     public void onMessage(Session session, Packet packet)
     {
-        System.out.println(packet);
+        System.out.println("Received from: " + session.getId() + " - " + packet);
         
         if (!sessionUsers.containsKey(session.getId()) && packet.getType() != PacketType.LOGIN)
         {
@@ -88,40 +121,12 @@ public class ControllerEndpoint
     private void handleCardData(Session session, Map<String, Object> data)
     {
         String key = (String) data.getOrDefault("key", "");
-        if ("all".equals(key))
+        if (!cardCache.containsKey(key))
         {
-            if (allCache != null)
-            {
-                sendPacket(session, PacketType.CARD_DATA, Map.of("item", allCache));
-                return;
-            }
-            
-            JsonObject object = new JsonObject();
-            JsonArray  items  = new JsonArray();
-            try (Stream<Path> paths = Files.list(Paths.get(assetPath)))
-            {
-                paths.forEach(p -> {
-                    try
-                    {
-                        String      content = Files.readString(p);
-                        JsonElement val     = JsonParser.parseString(content);
-                        items.add(content);
-                    } catch (IOException e)
-                    {
-                        throw new RuntimeException(e);
-                    }
-                });
-            } catch (IOException e)
-            {
-                throw new RuntimeException(e);
-            }
-    
-            object.addProperty("key", key);
-            object.add("value", items);
-            allCache = object;
-            
-            sendPacket(session, PacketType.CARD_DATA, Map.of("item", object));
+            return;
         }
+        
+        sendPacket(session, PacketType.CARD_DATA, Map.of("item", cardCache.get(key)));
     }
     
     private void handleGameAction(Session session, Map<String, Object> data)
@@ -140,14 +145,17 @@ public class ControllerEndpoint
         
         if (matchmaking.size() > 0)
         {
-            String otherId = matchmaking.remove();
-            String selfId  = session.getId();
+            // TODO: get deck from user
             
-            UserSession selfSession  = sessionUsers.get(selfId);
-            UserSession otherSession = sessionUsers.get(otherId);
+            String         selfId      = session.getId();
+            UserSession    selfSession = sessionUsers.get(selfId);
+            List<GameCard> deck        = IntStream.range(1, 51).mapToObj(i -> new Gson().fromJson(cardCache.get("BT1-001"), GameCard.class)).toList();
+            GamePlayer     playerSelf  = new GamePlayer(selfSession, deck);
             
-            GamePlayer playerSelf  = new GamePlayer(selfSession, List.of());
-            GamePlayer otherPlayer = new GamePlayer(otherSession, List.of());
+            String         otherId      = matchmaking.remove();
+            UserSession    otherSession = sessionUsers.get(otherId);
+            List<GameCard> deck2        = IntStream.range(1, 51).mapToObj(i -> new Gson().fromJson(cardCache.get("BT1-001"), GameCard.class)).toList();
+            GamePlayer     otherPlayer  = new GamePlayer(otherSession, deck2);
             
             Game game = new Game(playerSelf, otherPlayer);
             sessionGames.put(selfId, game);
@@ -181,8 +189,11 @@ public class ControllerEndpoint
             
             sessionGames.remove(opponent);
             
-            Session opponentSession = sessionUsers.get(opponent).session();
-            sendPacket(opponentSession, PacketType.GAME_WIN, Map.of());
+            UserSession other = sessionUsers.get(opponent);
+            if (other != null)
+            {
+                sendPacket(other.session(), PacketType.GAME_WIN, Map.of());
+            }
         }
     }
     
@@ -191,6 +202,7 @@ public class ControllerEndpoint
         try
         {
             Packet packet = new Packet(type, data);
+            System.out.println("Sending to: " + to.getId() + " - " + packet);
             to.getBasicRemote().sendObject(packet);
         } catch (IOException | EncodeException e)
         {

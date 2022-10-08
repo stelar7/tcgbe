@@ -1,40 +1,27 @@
 package game.basic;
 
-import game.enums.GameCardColor;
-import game.enums.GameCardType;
+import game.enums.*;
 
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 
 public class GameCard
 {
-    private final String             name;
-    private final String             cardCode;
-    private final GameCardType       cardType;
-    private final Set<GameCardColor> colors;
-    private final Integer            playCost;
-    private final Integer            level;
-    private final Integer            dp;
-    private final String             form;
-    private final String             attribute;
-    private final String             type;
+    private String             name;
+    private String             cardCode;
+    private GameCardType       cardType;
+    private Set<GameCardColor> colors;
+    private Integer            playCost;
+    private Integer            level;
+    private Integer            dp;
+    private String             form;
+    private String             attribute;
+    private String             type;
     
     private final String uuid;
     
-    public GameCard(String name, String cardCode, GameCardType cardType, Set<GameCardColor> colors, Integer playCost, Integer level, Integer dp, String form, String attribute, String type)
+    public GameCard()
     {
-        this.name = name;
-        this.cardCode = cardCode;
-        this.cardType = cardType;
-        this.colors = colors;
-        this.playCost = playCost;
-        this.level = level;
-        this.dp = dp;
-        this.form = form;
-        this.attribute = attribute;
-        this.type = type;
-        
         this.uuid = UUID.randomUUID().toString();
     }
     

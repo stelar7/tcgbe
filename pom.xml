@@ -38,7 +38,7 @@
         <!-- To run javax.websocket client -->
         <dependency>
             <groupId>org.eclipse.jetty.websocket</groupId>
-            <artifactId>websocket-javax-client</artifactId>
+            <artifactId>websocket-jetty-client</artifactId>
             <version>${jetty.version}</version>
         </dependency>
         <!-- for logging reasons -->

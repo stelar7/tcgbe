@@ -6,8 +6,7 @@ import game.enums.GameState;
 import game.state.*;
 import game.enums.GameEvent;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GamePlayer
 {
@@ -36,8 +35,7 @@ public class GamePlayer
     
     public void deckToSecurity(int count)
     {
-        int i = 0;
-        while (i < count && !deck.isEmpty())
+        for (int i = 0; i < count && !deck.isEmpty(); i++)
         {
             GameCard drawn = deck.removeFirst();
             session.emitEvent(GameEvent.REMOVE_FROM_DECK, Map.of("id", drawn.getUUID()));
@@ -49,7 +47,7 @@ public class GamePlayer
     
     public void handToDeckBottom(List<GameCard> cards)
     {
-        for (GameCard card : cards)
+        for (GameCard card : new ArrayList<>(cards))
         {
             hand.remove(card);
             session.emitEvent(GameEvent.REMOVE_FROM_HAND, Map.of("id", card.getUUID()));
@@ -61,8 +59,7 @@ public class GamePlayer
     
     public void draw(int count)
     {
-        int i = 0;
-        while (i < count && !deck.isEmpty())
+        for (int i = 0; i < count && !deck.isEmpty(); i++)
         {
             GameCard drawn = deck.removeFirst();
             session.emitEvent(GameEvent.REMOVE_FROM_DECK, Map.of("id", drawn.getUUID()));
