@@ -19,7 +19,8 @@ public class ControllerEndpoint
     
     public static String assetToken = "ABC-123";
     
-    private static Map<String, JsonElement> cardCache = new HashMap<>();
+    private static final Map<String, JsonElement> cardCache    = new HashMap<>();
+    private static final List<PacketType>         nonAuthTypes = List.of(PacketType.CARD_DATA, PacketType.LOGIN);
     
     private static final Map<String, String>      allowedLogins = Map.of("stelar7", "steffen1", "gandlaf", "gandlaf");
     private static final Queue<String>            matchmaking   = new ArrayDeque<>();
@@ -44,8 +45,12 @@ public class ControllerEndpoint
                 {
                     String      content = Files.readString(p);
                     JsonElement val     = JsonParser.parseString(content);
-                    cardCache.put(val.getAsJsonObject().get("card_number").getAsString(), val);
-                    items.add(content);
+                    
+                    String card_code = val.getAsJsonObject().get("card_number").getAsString();
+                    val.getAsJsonObject().addProperty("set", card_code.split("-")[0]);
+                    
+                    cardCache.put(card_code, val);
+                    items.add(val);
                 } catch (IOException e)
                 {
                     throw new RuntimeException(e);
@@ -71,7 +76,7 @@ public class ControllerEndpoint
     {
         System.out.println("Received from: " + session.getId() + " - " + packet);
         
-        if (!sessionUsers.containsKey(session.getId()) && packet.getType() != PacketType.LOGIN)
+        if (!sessionUsers.containsKey(session.getId()) && !nonAuthTypes.contains(packet.getType()))
         {
             sendPacket(session, PacketType.LOGIN, Map.of("error", "Login first!"));
             return;
