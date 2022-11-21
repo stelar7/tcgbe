@@ -12,6 +12,7 @@ public class GameEffectManager
     private final Queue<List<GameEffect>> pendingActivation         = new ArrayDeque<>();
     private final Queue<List<GameEffect>> interruptiveEffects       = new ArrayDeque<>();
     private final List<GameEffect>        triggeredFromInterrupt    = new ArrayList<>();
+    private final Set<UUID>               effectsTriggeredThisChain = new HashSet<>();
 
     public void askPlayerToChooseEffect(GamePlayer turnPlayer, GamePlayer opponent, List<GameEffect> effectsToTrigger)
     {
@@ -33,10 +34,14 @@ public class GameEffectManager
         choosing.askEffect("Select effect to activate", effectChoices);
 
         // Wait for callback
+        // Add selected effect to "effectsTriggeredThisChain"
         // Store effect somewhere to remember it, and remove effect from list
         // Trigger all interruptive effects
-        // if effect is not negated, do effect
-        // add any triggers from it to triggeredFromInterrupt
+        // If a triggered effect is in "effectsTriggeredThisChain", and is interruptive, cancel the trigger
+        // If there is a triggered effect, resolve that effect
+        // If there are no more interruptive effects, and its effect is not negated, do effect
+        // Add any triggers from it to triggeredFromInterrupt
+        // Resolve those effects too
     }
 
     public void resolvePendingEffects(GamePlayer turnPlayer, GamePlayer opponent, Map<String, Object> meta)
@@ -56,7 +61,10 @@ public class GameEffectManager
             return;
         }
 
-        // Resolve any interrupts effects
+        // If we are trying to resolve a new effect, allow all interrupts to happen again
+        effectsTriggeredThisChain.clear();
+
+        // Resolve any pending effects
         pendingActivation.removeIf(List::isEmpty);
         if (pendingActivation.isEmpty())
         {
