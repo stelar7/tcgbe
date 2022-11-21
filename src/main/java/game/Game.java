@@ -44,12 +44,15 @@ public class Game
         this.runCommand(player, Map.of());
     }
 
-    private void resolvePendingEffect(List<GameEffect> effectsToTrigger)
+    private void askPlayerToChooseEffect(List<GameEffect> effectsToTrigger)
     {
-        // Ask player to choose 1
+        // Run below for turnplayer (until they have no more effects), then for opponent
+        // Ask player to choose 1 from "effectsToTrigger"
+        // Store effect somewhere to remember it, and remove effect from list
         // Wait for callback
-        // If effect "would" do something, add it to interruptiveEffects
-        // if effect is interruptive, add any triggers from it to triggeredFromInterrupt
+        // Trigger all interruptive effects and add any triggers from them to triggeredFromInterrupt
+        // if effect is not negated, do effect
+        // add any triggers from it to triggeredFromInterrupt
     }
 
     private void resolvePendingEffects()
@@ -57,7 +60,8 @@ public class Game
         if (isResolvingEffects)
         {
             if (!interruptiveEffects.isEmpty()) {
-                resolvePendingEffect(interruptiveEffects);
+                askPlayerToChooseEffect(interruptiveEffects);
+                return;
             } else {
                 pendingActivation.add(new ArrayList<>(triggeredFromInterrupt));
                 triggeredFromInterrupt.clear();
@@ -72,7 +76,8 @@ public class Game
             }
 
             List<GameEffect> lastTriggeredEffects = pendingActivation.peek();
-            resolvePendingEffect(lastTriggeredEffects);
+            askPlayerToChooseEffect(lastTriggeredEffects);
+            return;
         }
     }
 
@@ -81,6 +86,7 @@ public class Game
         if (isResolvingEffects)
         {
             resolvePendingEffects();
+            this.runCommand(player, Map.of());
             return;
         }
 
