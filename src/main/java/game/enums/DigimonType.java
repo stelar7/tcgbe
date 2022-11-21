@@ -12,7 +12,8 @@ public enum DigimonType
     DINOSAUR("恐竜型"),
     BIRD("ヒナ鳥型"),
     AVIAN("鳥型"),
-    ;
+    GIANT_BIRD("巨鳥型"),
+    UNIDENTIFIED("不明");
 
 
     final String japanese;

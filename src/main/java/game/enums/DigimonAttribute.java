@@ -4,6 +4,7 @@ public enum DigimonAttribute
 {
     VACCINE("ワクチン"),
     DATA("データ"),
+    UNKNOWN("不明"),
     ;
 
     private final String japanese;

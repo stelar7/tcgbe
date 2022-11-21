@@ -15,6 +15,7 @@ public abstract class GameCard
     }
 
     public abstract String getJapaneseName();
+
     public abstract String GetEnglishName();
 
     public abstract String getCardCode();
