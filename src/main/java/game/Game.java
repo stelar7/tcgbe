@@ -12,23 +12,24 @@ public class Game
 {
     private final GamePlayer one;
     private final GamePlayer two;
-    private       GamePlayer turnPlayer;
-    private       boolean    isResolvingEffects = false;
 
-    private final Map<GamePlayer, GameState> state                  = new HashMap<>();
-    private final Queue<List<GameEffect>>    pendingActivation      = new ArrayDeque<>();
-    private final List<GameEffect>           interruptiveEffects    = new ArrayList<>();
-    private final List<GameEffect>           triggeredFromInterrupt = new ArrayList<>();
+    private GamePlayer turnPlayer;
+
+    private final GameEffectManager effectManager;
+
+    private final Map<GamePlayer, GameState> state = new HashMap<>();
 
     public Game(GamePlayer one, GamePlayer two)
     {
         this.one = one;
         this.two = two;
+
+        effectManager = new GameEffectManager();
     }
 
     public GameState getState(GamePlayer player)
     {
-        return state.get(player);
+        return state.getOrDefault(player, GameState.INIT);
     }
 
     private void setState(GamePlayer player, GameState state)
@@ -44,53 +45,16 @@ public class Game
         this.runCommand(player, Map.of());
     }
 
-    private void askPlayerToChooseEffect(List<GameEffect> effectsToTrigger)
-    {
-        // Run below for turnplayer (until they have no more effects), then for opponent
-        // Ask player to choose 1 from "effectsToTrigger"
-        // Store effect somewhere to remember it, and remove effect from list
-        // Wait for callback
-        // Trigger all interruptive effects and add any triggers from them to triggeredFromInterrupt
-        // if effect is not negated, do effect
-        // add any triggers from it to triggeredFromInterrupt
-    }
-
-    private void resolvePendingEffects()
-    {
-        if (isResolvingEffects)
-        {
-            if (!interruptiveEffects.isEmpty()) {
-                askPlayerToChooseEffect(interruptiveEffects);
-                return;
-            } else {
-                pendingActivation.add(new ArrayList<>(triggeredFromInterrupt));
-                triggeredFromInterrupt.clear();
-            }
-
-            pendingActivation.removeIf(List::isEmpty);
-
-            if (pendingActivation.isEmpty())
-            {
-                isResolvingEffects = false;
-                return;
-            }
-
-            List<GameEffect> lastTriggeredEffects = pendingActivation.peek();
-            askPlayerToChooseEffect(lastTriggeredEffects);
-            return;
-        }
-    }
-
     public void runCommand(GamePlayer player, Map<String, Object> meta)
     {
-        if (isResolvingEffects)
+        if (effectManager.isResolvingEffects())
         {
-            resolvePendingEffects();
-            this.runCommand(player, Map.of());
+            effectManager.resolvePendingEffects(turnPlayer, getOtherPlayer(turnPlayer), meta);
+            this.runCommand(player, meta);
             return;
         }
 
-        GameState playerState = state.getOrDefault(player, GameState.INIT);
+        GameState playerState = getState(player);
 
         switch (playerState)
         {
@@ -113,8 +77,8 @@ public class Game
 
                 setState(player, GameState.WAITING);
 
-                // Whoever chooses mulligan lasts get to go first lul
-                if (state.get(getOtherPlayer(player)) == GameState.WAITING)
+                // Let the last player to mulligan go first
+                if (getState(getOtherPlayer(player)) == GameState.WAITING)
                 {
                     turnPlayer = player;
                     setStateAndRunGameLoop(player, GameState.START_OF_TURN);
@@ -144,12 +108,12 @@ public class Game
             {
                 if (player.getBreeding().hasHatched())
                 {
-                    setStateAndRunGameLoop(player, GameState.BREEDING_PLAY);
+                    setState(player, GameState.BREEDING_PLAY);
                 } else
                 {
                     if (player.getBreeding().canHatch())
                     {
-                        setStateAndRunGameLoop(player, GameState.BREEDING_HATCH);
+                        setState(player, GameState.BREEDING_HATCH);
                     } else
                     {
                         setStateAndRunGameLoop(player, GameState.MAIN);
@@ -166,7 +130,7 @@ public class Game
                     player.getBoard().play(PlayType.HATCH, hatched);
                 }
 
-                setStateAndRunGameLoop(player, GameState.MAIN);
+                setState(player, GameState.MAIN);
             }
 
             case BREEDING_HATCH ->
@@ -176,7 +140,7 @@ public class Game
                     player.getBreeding().hatch();
                 }
 
-                setStateAndRunGameLoop(player, GameState.MAIN);
+                setState(player, GameState.MAIN);
             }
 
 

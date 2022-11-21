@@ -1,28 +1,18 @@
 package game.basic;
 
-import game.enums.EffectType;
-import game.enums.GameCardColor;
-import game.enums.SuspendState;
-
-import java.util.Set;
+import game.GamePlayer;
 
 public class CardStack
 {
-    private SuspendState state = SuspendState.UNSUSPENDED;
-    
-    private Set<String>        names;
-    private Set<GameCardColor> colors;
-    private Integer            dp;
-    private Integer            level;
-    
-    public CardStack(GameCard initial)
+    private GamePlayer owner;
+
+    public CardStack(GamePlayer owner)
     {
-    
+        this.owner = owner;
     }
-    
-    
-    public void unsusped(EffectType reason)
+
+    public GamePlayer getOwner()
     {
-        this.state = SuspendState.UNSUSPENDED;
+        return owner;
     }
 }
