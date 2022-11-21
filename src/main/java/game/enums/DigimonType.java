@@ -13,7 +13,14 @@ public enum DigimonType
     BIRD("ヒナ鳥型"),
     AVIAN("鳥型"),
     GIANT_BIRD("巨鳥型"),
-    UNIDENTIFIED("不明");
+    UNIDENTIFIED("不明型"),
+    FIRE_DRAGON( "火炎竜型"),
+    EARTH_DRAGON("地竜型"),
+    CYBORG("サイボーグ型"),
+    BIRDKIN("鳥人型"),
+    UNDEAD("アンデッド型"),
+    DRAGONKIN("竜人型"),
+    MACHINE_DRAGON("機竜型");
 
 
     final String japanese;

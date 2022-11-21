@@ -1,8 +1,11 @@
 package game.cards.bt1;
 
+import game.basic.DigivolutionRequirement;
+import game.basic.DigivolutionRequirements;
 import game.basic.GameCard;
 import game.enums.*;
 
+import java.util.Optional;
 import java.util.Set;
 
 public class BT1010 extends GameCard
@@ -19,7 +22,7 @@ public class BT1010 extends GameCard
     }
 
     @Override
-    public String GetEnglishName()
+    public String getEnglishName()
     {
         return "Agumon";
     }
@@ -76,5 +79,11 @@ public class BT1010 extends GameCard
     public DigimonType getType()
     {
         return DigimonType.REPTILE;
+    }
+
+    @Override
+    public DigivolutionRequirements getDigivolutionRequirements()
+    {
+        return Optional.of(new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.RED, 2, 0)));
     }
 }

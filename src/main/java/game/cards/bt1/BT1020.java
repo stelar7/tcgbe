@@ -1,15 +1,15 @@
 package game.cards.bt1;
 
+import game.basic.DigivolutionRequirement;
 import game.basic.DigivolutionRequirements;
 import game.basic.GameCard;
 import game.enums.*;
 
-import java.util.Optional;
 import java.util.Set;
 
-public class BT1002 extends GameCard
+public class BT1020 extends GameCard
 {
-    public BT1002(String uuid)
+    public BT1020(String uuid)
     {
         super(uuid);
     }
@@ -17,25 +17,25 @@ public class BT1002 extends GameCard
     @Override
     public String getJapaneseName()
     {
-        return "ピョコモン";
+        return "グラウンドラモン";
     }
 
     @Override
     public String getEnglishName()
     {
-        return "Bebydomon";
+        return "Groundramon";
     }
 
     @Override
     public String getCardCode()
     {
-        return "BT1-002";
+        return "BT1-02,";
     }
 
     @Override
     public GameCardType getCardType()
     {
-        return GameCardType.DIGITAMA;
+        return GameCardType.DIGIMON;
     }
 
     @Override
@@ -47,42 +47,42 @@ public class BT1002 extends GameCard
     @Override
     public Integer getPlayCost()
     {
-        return null;
+        return 5;
     }
 
     @Override
     public Integer getLevel()
     {
-        return 2;
+        return 5;
     }
 
     @Override
     public Integer getDp()
     {
-        return null;
+        return 6000;
     }
 
     @Override
     public DigivolutionForm getForm()
     {
-        return DigivolutionForm.IN_TRAINING;
+        return DigivolutionForm.ULTIMATE;
     }
 
     @Override
     public DigimonAttribute getAttribute()
     {
-        return null;
+        return DigimonAttribute.VIRUS;
     }
 
     @Override
     public DigimonType getType()
     {
-        return DigimonType.BABY_DRAGON;
+        return DigimonType.EARTH_DRAGON;
     }
 
     @Override
     public DigivolutionRequirements getDigivolutionRequirements()
     {
-        return null;
+        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.RED, 4, 2));
     }
 }

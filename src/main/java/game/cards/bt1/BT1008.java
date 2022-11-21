@@ -1,8 +1,10 @@
 package game.cards.bt1;
 
+import game.basic.DigivolutionRequirements;
 import game.basic.GameCard;
 import game.enums.*;
 
+import java.util.Optional;
 import java.util.Set;
 
 public class BT1008 extends GameCard
@@ -19,7 +21,7 @@ public class BT1008 extends GameCard
     }
 
     @Override
-    public String GetEnglishName()
+    public String getEnglishName()
     {
         return "Frimon";
     }
@@ -76,5 +78,11 @@ public class BT1008 extends GameCard
     public DigimonType getType()
     {
         return DigimonType.LESSER;
+    }
+
+    @Override
+    public DigivolutionRequirements getDigivolutionRequirements()
+    {
+        return null;
     }
 }

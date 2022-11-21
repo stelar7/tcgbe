@@ -16,7 +16,7 @@ public abstract class GameCard
 
     public abstract String getJapaneseName();
 
-    public abstract String GetEnglishName();
+    public abstract String getEnglishName();
 
     public abstract String getCardCode();
 
@@ -35,6 +35,8 @@ public abstract class GameCard
     public abstract DigimonAttribute getAttribute();
 
     public abstract DigimonType getType();
+
+    public abstract DigivolutionRequirements getDigivolutionRequirements();
 
     public String getUUID()
     {

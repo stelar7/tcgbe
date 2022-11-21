@@ -1,5 +1,6 @@
 package game.cards.bt1;
 
+import game.basic.DigivolutionRequirement;
 import game.basic.DigivolutionRequirements;
 import game.basic.GameCard;
 import game.enums.*;
@@ -7,9 +8,9 @@ import game.enums.*;
 import java.util.Optional;
 import java.util.Set;
 
-public class BT1002 extends GameCard
+public class BT1017 extends GameCard
 {
-    public BT1002(String uuid)
+    public BT1017(String uuid)
     {
         super(uuid);
     }
@@ -17,25 +18,25 @@ public class BT1002 extends GameCard
     @Override
     public String getJapaneseName()
     {
-        return "ピョコモン";
+        return "バードラモン";
     }
 
     @Override
     public String getEnglishName()
     {
-        return "Bebydomon";
+        return "Birdramon";
     }
 
     @Override
     public String getCardCode()
     {
-        return "BT1-002";
+        return "BT1-017";
     }
 
     @Override
     public GameCardType getCardType()
     {
-        return GameCardType.DIGITAMA;
+        return GameCardType.DIGIMON;
     }
 
     @Override
@@ -47,42 +48,42 @@ public class BT1002 extends GameCard
     @Override
     public Integer getPlayCost()
     {
-        return null;
+        return 4;
     }
 
     @Override
     public Integer getLevel()
     {
-        return 2;
+        return 4;
     }
 
     @Override
     public Integer getDp()
     {
-        return null;
+        return 4000;
     }
 
     @Override
     public DigivolutionForm getForm()
     {
-        return DigivolutionForm.IN_TRAINING;
+        return DigivolutionForm.CHAMPION;
     }
 
     @Override
     public DigimonAttribute getAttribute()
     {
-        return null;
+        return DigimonAttribute.VACCINE;
     }
 
     @Override
     public DigimonType getType()
     {
-        return DigimonType.BABY_DRAGON;
+        return DigimonType.GIANT_BIRD;
     }
 
     @Override
     public DigivolutionRequirements getDigivolutionRequirements()
     {
-        return null;
+        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.RED, 3, 2));
     }
 }
