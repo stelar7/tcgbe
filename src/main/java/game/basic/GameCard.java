@@ -35,7 +35,7 @@ public abstract class GameCard
 
     public abstract DigimonType getType();
 
-    public String getUuid()
+    public String getUUID()
     {
         return uuid;
     }
