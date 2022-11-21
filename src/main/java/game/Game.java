@@ -6,38 +6,86 @@ import game.enums.GameState;
 import game.enums.PlayType;
 import game.enums.YesNo;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Game
 {
     private final GamePlayer one;
     private final GamePlayer two;
     private       GamePlayer turnPlayer;
-    
-    private final Map<GamePlayer, GameState> state = new HashMap<>();
-    
+    private       boolean    isResolvingEffects = false;
+
+    private final Map<GamePlayer, GameState> state                  = new HashMap<>();
+    private final Queue<List<GameEffect>>    pendingActivation      = new ArrayDeque<>();
+    private final List<GameEffect>           interruptiveEffects    = new ArrayList<>();
+    private final List<GameEffect>           triggeredFromInterrupt = new ArrayList<>();
+
     public Game(GamePlayer one, GamePlayer two)
     {
         this.one = one;
         this.two = two;
     }
-    
+
     public GameState getState(GamePlayer player)
     {
         return state.get(player);
     }
-    
+
     private void setState(GamePlayer player, GameState state)
     {
         this.state.put(player, state);
         player.changeState(state);
     }
-    
+
+    private void setStateAndRunGameLoop(GamePlayer player, GameState state)
+    {
+        this.state.put(player, state);
+        player.changeState(state);
+        this.runCommand(player, Map.of());
+    }
+
+    private void resolvePendingEffect(List<GameEffect> effectsToTrigger)
+    {
+        // Ask player to choose 1
+        // Wait for callback
+        // If effect "would" do something, add it to interruptiveEffects
+        // if effect is interruptive, add any triggers from it to triggeredFromInterrupt
+    }
+
+    private void resolvePendingEffects()
+    {
+        if (isResolvingEffects)
+        {
+            if (!interruptiveEffects.isEmpty()) {
+                resolvePendingEffect(interruptiveEffects);
+            } else {
+                pendingActivation.add(new ArrayList<>(triggeredFromInterrupt));
+                triggeredFromInterrupt.clear();
+            }
+
+            pendingActivation.removeIf(List::isEmpty);
+
+            if (pendingActivation.isEmpty())
+            {
+                isResolvingEffects = false;
+                return;
+            }
+
+            List<GameEffect> lastTriggeredEffects = pendingActivation.peek();
+            resolvePendingEffect(lastTriggeredEffects);
+        }
+    }
+
     public void runCommand(GamePlayer player, Map<String, Object> meta)
     {
+        if (isResolvingEffects)
+        {
+            resolvePendingEffects();
+            return;
+        }
+
         GameState playerState = state.getOrDefault(player, GameState.INIT);
-        
+
         switch (playerState)
         {
             case INIT ->
@@ -45,10 +93,10 @@ public class Game
                 setState(player, GameState.SETUP);
                 player.deckToSecurity(5);
                 player.draw(5);
-                
+
                 setState(player, GameState.MULLIGAN);
             }
-            
+
             case MULLIGAN ->
             {
                 if (getActionYesNo(meta) == YesNo.YES)
@@ -56,53 +104,53 @@ public class Game
                     player.handToDeckBottom(player.getHand());
                     player.draw(5);
                 }
-                
+
                 setState(player, GameState.WAITING);
-                
+
                 // Whoever chooses mulligan lasts get to go first lul
                 if (state.get(getOtherPlayer(player)) == GameState.WAITING)
                 {
                     turnPlayer = player;
-                    setState(player, GameState.START_OF_TURN);
+                    setStateAndRunGameLoop(player, GameState.START_OF_TURN);
                 }
             }
-            
+
             case START_OF_TURN ->
             {
-                setState(player, GameState.UNSUSPEND);
+                setStateAndRunGameLoop(player, GameState.UNSUSPEND);
             }
-            
+
             case UNSUSPEND ->
             {
                 player.getBoard().unsuspend(EffectType.GAME_RULES);
-                
-                setState(player, GameState.DRAW);
+
+                setStateAndRunGameLoop(player, GameState.DRAW);
             }
-            
+
             case DRAW ->
             {
                 player.draw(1);
-                
-                setState(player, GameState.BREEDING);
+
+                setStateAndRunGameLoop(player, GameState.BREEDING);
             }
-            
+
             case BREEDING ->
             {
                 if (player.getBreeding().hasHatched())
                 {
-                    setState(player, GameState.BREEDING_PLAY);
+                    setStateAndRunGameLoop(player, GameState.BREEDING_PLAY);
                 } else
                 {
                     if (player.getBreeding().canHatch())
                     {
-                        setState(player, GameState.BREEDING_HATCH);
+                        setStateAndRunGameLoop(player, GameState.BREEDING_HATCH);
                     } else
                     {
-                        setState(player, GameState.MAIN);
+                        setStateAndRunGameLoop(player, GameState.MAIN);
                     }
                 }
             }
-            
+
             case BREEDING_PLAY ->
             {
                 if (getActionYesNo(meta) == YesNo.YES)
@@ -111,21 +159,21 @@ public class Game
                     player.getBreeding().removeHatched();
                     player.getBoard().play(PlayType.HATCH, hatched);
                 }
-                
-                setState(player, GameState.MAIN);
+
+                setStateAndRunGameLoop(player, GameState.MAIN);
             }
-            
+
             case BREEDING_HATCH ->
             {
                 if (getActionYesNo(meta) == YesNo.YES)
                 {
                     player.getBreeding().hatch();
                 }
-                
-                setState(player, GameState.MAIN);
+
+                setStateAndRunGameLoop(player, GameState.MAIN);
             }
-            
-            
+
+
             default ->
             {
                 System.out.println("Unhandled state " + playerState.name());
@@ -135,7 +183,7 @@ public class Game
             }
         }
     }
-    
+
     private YesNo getActionYesNo(Map<String, Object> meta)
     {
         String value = meta.get("action").toString();
@@ -143,37 +191,37 @@ public class Game
         {
             return YesNo.YES;
         }
-        
+
         if (value.equalsIgnoreCase("No"))
         {
             return YesNo.NO;
         }
-        
+
         return null;
     }
-    
+
     private GamePlayer getOtherPlayer(GamePlayer player)
     {
         if (player.equals(one))
         {
             return two;
         }
-        
+
         return one;
     }
-    
+
     public GamePlayer getPlayer(String sessionId)
     {
         if (one.getId().equals(sessionId))
         {
             return one;
         }
-        
+
         if (two.getId().equals(sessionId))
         {
             return two;
         }
-        
+
         return null;
     }
 }

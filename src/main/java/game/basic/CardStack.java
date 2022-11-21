@@ -8,7 +8,6 @@ import java.util.Set;
 
 public class CardStack
 {
-    
     private SuspendState state = SuspendState.UNSUSPENDED;
     
     private Set<String>        names;
