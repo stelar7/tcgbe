@@ -1,7 +1,7 @@
 package game;
 
 import game.enums.GameEvent;
-import socket.*;
+import game.socket.*;
 
 import javax.websocket.*;
 import java.io.IOException;

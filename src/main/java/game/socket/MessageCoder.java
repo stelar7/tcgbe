@@ -1,4 +1,4 @@
-package socket;
+package game.socket;
 
 import com.google.gson.Gson;
 

@@ -1,4 +1,4 @@
-package socket;
+package game.socket;
 
 public enum PacketType
 {

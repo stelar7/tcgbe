@@ -1,0 +1,62 @@
+enum GameCardType {
+    DIGIMON
+    DIGITAMA
+    TAMER
+    OPTION
+}
+
+enum GameCardColor {
+    RED
+    BLUE
+    YELLOW
+    GREEN
+    BLACK
+    PURPLE
+    WHITE
+}
+
+type Card {
+    name: String!
+    cardCode: String!
+    cardType: GameCardType!
+    colors: [GameCardColor!]!
+    image: String!
+    playCost: Int!
+    level: Int
+    dp: Int
+    form: String
+    attribute: String
+    type: String
+}
+
+type Deck {
+    id: Int!
+    title: String!
+    cards: [Card!]!
+}
+
+input DeckInput {
+    title: String!
+    cards: [String!]! # Card.cardCode
+}
+
+type User {
+    id: Int!
+    username: String!
+    email: String!
+    decks: [Deck!]!
+}
+
+type Query {
+    users: [User!]!
+}
+
+type Mutation {
+    addDeck(user: ID!, deck: DeckInput!): Deck
+}
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+

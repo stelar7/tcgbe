@@ -1,4 +1,4 @@
-package socket;
+package game.socket;
 
 import java.util.*;
 
