@@ -1,11 +1,8 @@
 package game.cards.bt1;
 
-import game.basic.DigivolutionRequirement;
-import game.basic.DigivolutionRequirements;
-import game.basic.GameCard;
+import game.basic.*;
 import game.enums.*;
 
-import java.util.Optional;
 import java.util.Set;
 
 public class BT1012 extends GameCard
@@ -84,6 +81,6 @@ public class BT1012 extends GameCard
     @Override
     public DigivolutionRequirements getDigivolutionRequirements()
     {
-        return Optional.of(new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.RED, 2, 0)));
+        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.RED, 2, 0));
     }
 }
