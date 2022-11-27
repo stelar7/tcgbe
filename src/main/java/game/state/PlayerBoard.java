@@ -12,7 +12,6 @@ public class PlayerBoard extends ArrayList<CardStack>
     {
         for (CardStack c : this)
         {
-            c.unsusped(reason);
         }
     }
     

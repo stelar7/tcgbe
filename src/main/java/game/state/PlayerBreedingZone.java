@@ -1,18 +1,18 @@
 package game.state;
 
-import game.basic.CardStack;
-import game.basic.GameCard;
-
-import java.util.List;
+import game.GamePlayer;
+import game.basic.*;
 
 public class PlayerBreedingZone
 {
+    private final GamePlayer owner;
     private final PlayerDeck deck;
     private       CardStack  hatched;
     
-    public PlayerBreedingZone(List<GameCard> cards)
+    public PlayerBreedingZone(GamePlayer owner, PlayerDeck deck)
     {
-        this.deck = new PlayerDeck(cards);
+        this.owner = owner;
+        this.deck = deck;
     }
     
     public CardStack getHatched()
@@ -32,8 +32,10 @@ public class PlayerBreedingZone
     
     public void hatch()
     {
+        hatched = new CardStack(owner);
+        
         GameCard toHatch = deck.removeFirst();
-        hatched = new CardStack(toHatch);
+        hatched.addCardToTopOfStack(toHatch);
     }
     
     public boolean hasHatched()
