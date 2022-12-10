@@ -76,9 +76,9 @@ public class BT1017 extends GameCard
     }
 
     @Override
-    public DigimonType getType()
+    public Set<DigimonType> getType()
     {
-        return DigimonType.GIANT_BIRD;
+        return Set.of(DigimonType.GIANT_BIRD);
     }
 
     @Override

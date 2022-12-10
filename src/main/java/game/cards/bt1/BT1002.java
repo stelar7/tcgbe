@@ -4,7 +4,6 @@ import game.basic.DigivolutionRequirements;
 import game.basic.GameCard;
 import game.enums.*;
 
-import java.util.Optional;
 import java.util.Set;
 
 public class BT1002 extends GameCard
@@ -75,9 +74,9 @@ public class BT1002 extends GameCard
     }
 
     @Override
-    public DigimonType getType()
+    public Set<DigimonType> getType()
     {
-        return DigimonType.BABY_DRAGON;
+        return Set.of(DigimonType.BABY_DRAGON);
     }
 
     @Override

@@ -75,9 +75,9 @@ public class BT1018 extends GameCard
     }
 
     @Override
-    public DigimonType getType()
+    public Set<DigimonType> getType()
     {
-        return DigimonType.FIRE_DRAGON;
+        return Set.of(DigimonType.FIRE_DRAGON);
     }
 
     @Override

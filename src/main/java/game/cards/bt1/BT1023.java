@@ -75,9 +75,9 @@ public class BT1023 extends GameCard
     }
 
     @Override
-    public DigimonType getType()
+    public Set<DigimonType> getType()
     {
-        return DigimonType.UNDEAD;
+        return Set.of(DigimonType.UNDEAD);
     }
 
     @Override

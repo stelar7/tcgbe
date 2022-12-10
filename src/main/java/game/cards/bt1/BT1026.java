@@ -75,9 +75,9 @@ public class BT1026 extends GameCard
     }
 
     @Override
-    public DigimonType getType()
+    public Set<DigimonType> getType()
     {
-        return DigimonType.MACHINE_DRAGON;
+        return Set.of(DigimonType.MACHINE_DRAGON);
     }
 
     @Override

@@ -6,6 +6,7 @@ public enum DigimonAttribute
     DATA("データ"),
     UNKNOWN("不明"),
     VIRUS("ウィルス"),
+    FREE("フリー"),
     ;
 
     private final String japanese;

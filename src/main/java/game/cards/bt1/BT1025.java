@@ -75,9 +75,9 @@ public class BT1025 extends GameCard
     }
 
     @Override
-    public DigimonType getType()
+    public Set<DigimonType> getType()
     {
-        return DigimonType.DRAGONKIN;
+        return Set.of(DigimonType.DRAGONKIN);
     }
 
     @Override

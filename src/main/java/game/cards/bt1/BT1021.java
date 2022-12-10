@@ -75,9 +75,9 @@ public class BT1021 extends GameCard
     }
 
     @Override
-    public DigimonType getType()
+    public Set<DigimonType> getType()
     {
-        return DigimonType.CYBORG;
+        return Set.of(DigimonType.CYBORG);
     }
 
     @Override
