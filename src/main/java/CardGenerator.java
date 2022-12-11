@@ -11,10 +11,10 @@ public class CardGenerator
 {
     public static void main(String[] args) throws IOException, URISyntaxException
     {
-        for (int i = 1; i < 30; i++)
+        for (int i = 1; i <= 40; i++)
         {
             String index = String.format("%03d", i);
-            String card  = "BT2-" + index;
+            String card  = "BT3-" + index;
             String set   = card.split("-")[0];
             String clazz = card.replaceAll("-", "");
             
@@ -134,7 +134,7 @@ public class CardGenerator
         String cost        = elem.get("cost") == null ? "null" : elem.get("cost").getAsString();
         String level       = elem.get("level") == null ? "null" : elem.get("level").getAsString();
         String dp          = elem.get("power") == null ? "null" : elem.get("power").getAsString();
-        String form        = (elem.get("stage") == null || elem.get("stage").getAsString().isEmpty()) ? "null" : "DigivolutionForm." + elem.get("stage").getAsString().toUpperCase().replaceAll(" ", "_").replace("-", "_");
+        String form        = (elem.get("stage") == null || elem.get("stage").getAsString().isEmpty() || elem.get("stage").getAsString().equalsIgnoreCase("baby")) ? "null" : "DigivolutionForm." + elem.get("stage").getAsString().toUpperCase().replaceAll(" ", "_").replace("-", "_");
         String attribute   = (elem.get("attribute") == null  || elem.get("attribute").getAsString().isEmpty()) ? "null" : "DigimonAttribute." + elem.get("attribute").getAsString().toUpperCase().replaceAll(" ", "_").replace("-", "_");
         
         StringJoiner color      = new StringJoiner(", ");

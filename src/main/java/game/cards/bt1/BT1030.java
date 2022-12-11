@@ -1,8 +1,6 @@
 package game.cards.bt1;
 
-import game.basic.DigivolutionRequirement;
-import game.basic.DigivolutionRequirements;
-import game.basic.GameCard;
+import game.basic.*;
 import game.enums.*;
 
 import java.util.Set;
