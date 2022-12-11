@@ -2,11 +2,12 @@ package game.enums;
 
 public enum DigimonAttribute
 {
-    VACCINE("ワクチン"),
     DATA("データ"),
-    UNKNOWN("不明"),
-    VIRUS("ウィルス"),
     FREE("フリー"),
+    UNKNOWN("不明"),
+    VACCINE("ワクチン"),
+    VARIABLE("ヴァリアブル種"),
+    VIRUS("ウィルス"),
     ;
 
     private final String japanese;

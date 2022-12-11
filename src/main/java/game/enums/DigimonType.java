@@ -2,19 +2,25 @@ package game.enums;
 
 public enum DigimonType
 {
+    ABNORMAL("ミュータント型"),
     AMPHIBIAN("両生類型"),
     ANCIENT_ANIMAL("古代獣型"),
+    ANCIENT_DRAGON("古代竜型"),
     ANGEL("天使型"),
+    ANKYLOSAUR("鎧竜型"),
     ARCHANGEL("大天使型"),
     ARMOR("防具型"),
     AUTHORITY("能天使型"),
     AVIAN("鳥型"),
     BABY_DRAGON("幼竜型"),
+    BAGRA_ARMY("バグラ軍"),
     BEAST("獣型"),
     BEASTKIN("獣人型"),
+    BEAST_KNIGHT("獣騎士型"),
     BIRD("ヒナ鳥型"),
     BIRDKIN("鳥人型"),
     BLUE_FLARE("ブルーフレア"),
+    BOSS("バンチョー"),
     BULB("球根型"),
     CARNIVOROUS_PLANT("食虫植物型"),
     CHERUB("智天使型"),
@@ -26,8 +32,10 @@ public enum DigimonType
     DEMON_LORD("魔王型"),
     DINOSAUR("恐竜型"),
     DRAGONKIN("竜人型"),
+    D_BRIGADE("D・ブリガード"),
     EARTH_DRAGON("地竜型"),
     EVIL("小恶魔型"),
+    EVIL_DRAGON("邪竜型"),
     FAIRY("妖精型"),
     FALLEN_ANGEL("堕天使型"),
     FIRE_DRAGON("火炎竜型"),
@@ -47,6 +55,7 @@ public enum DigimonType
     MACHINE_DRAGON("機竜型"),
     MAGIC_WARRIOR("魔法戦士型"),
     MAMMAL("哺乳類型"),
+    MINE("機雷型"),
     MINI_ANGEL("小天使型"),
     MINI_BIRD("小鳥型"),
     MINI_DRAGON("小竜型"),
@@ -54,6 +63,7 @@ public enum DigimonType
     MUTANT("突然変異型"),
     MYTHICAL_BEAST("幻獣型"),
     MYTHICAL_DRAGON("幻竜型"),
+    OLYMPOS_XII("オリンポス十二神"),
     PERFECT("パーフェクト型"),
     PUPPET("パペット型"),
     REPTILE("爬虫類型"),
@@ -71,12 +81,12 @@ public enum DigimonType
     UNIDENTIFIED("不明型"),
     UNIQUE("特異型"),
     VEGETATION("植物型"),
+    VIRTUE("力天使型"),
     WARRIOR("戰士型"),
     WEAPON("武器型"),
     WIZARD("魔人型"),
     XROS_HEART("クロスハート"),
-    ANKYLOSAUR("鎧竜型"),
-    ANCIENT_DRAGON("古代竜型");
+    ;
     
     
     final String japanese;
