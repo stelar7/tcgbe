@@ -14,7 +14,7 @@ public class CardGenerator
         for (int i = 1; i <= 10; i++)
         {
             String index = String.format("%03d", i);
-            String card  = "BT5-" + index;
+            String card  = "BT6-" + index;
             String set   = card.split("-")[0];
             String clazz = card.replaceAll("-", "");
             

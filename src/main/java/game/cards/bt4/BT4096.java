@@ -11,73 +11,73 @@ public class BT4096 extends GameCard
     {
         super(uuid);
     }
-
+    
     @Override
     public String getJapaneseName()
     {
         return "泉光子郎";
     }
-
+    
     @Override
     public String getEnglishName()
     {
-        return "Izzy Izumi" ;
+        return "Izzy Izumi";
     }
-
+    
     @Override
     public String getCardCode()
     {
         return "BT4-096";
     }
-
+    
     @Override
     public GameCardType getCardType()
     {
         return GameCardType.TAMER;
     }
-
+    
     @Override
     public Set<GameCardColor> getColors()
     {
         return Set.of(GameCardColor.BLACK);
     }
-
+    
     @Override
     public Integer getPlayCost()
     {
         return 4;
     }
-
+    
     @Override
     public Integer getLevel()
     {
         return null;
     }
-
+    
     @Override
     public Integer getDp()
     {
         return null;
     }
-
+    
     @Override
     public DigivolutionForm getForm()
     {
         return null;
     }
-
+    
     @Override
     public DigimonAttribute getAttribute()
     {
         return null;
     }
-
+    
     @Override
     public Set<DigimonType> getType()
     {
         return null;
     }
-
+    
     @Override
     public DigivolutionRequirements getDigivolutionRequirements()
     {

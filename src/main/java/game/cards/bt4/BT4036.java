@@ -1,8 +1,6 @@
 package game.cards.bt4;
 
-import game.basic.DigivolutionRequirement;
-import game.basic.DigivolutionRequirements;
-import game.basic.GameCard;
+import game.basic.*;
 import game.enums.*;
 
 import java.util.Set;
@@ -13,76 +11,76 @@ public class BT4036 extends GameCard
     {
         super(uuid);
     }
-
+    
     @Override
     public String getJapaneseName()
     {
         return "ファルコモン";
     }
-
+    
     @Override
     public String getEnglishName()
     {
-        return "Falcomon" ;
+        return "Falcomon";
     }
-
+    
     @Override
     public String getCardCode()
     {
         return "BT4-036";
     }
-
+    
     @Override
     public GameCardType getCardType()
     {
         return GameCardType.DIGIMON;
     }
-
+    
     @Override
     public Set<GameCardColor> getColors()
     {
         return Set.of(GameCardColor.YELLOW);
     }
-
+    
     @Override
     public Integer getPlayCost()
     {
         return 2;
     }
-
+    
     @Override
     public Integer getLevel()
     {
         return 3;
     }
-
+    
     @Override
     public Integer getDp()
     {
         return 5000;
     }
-
+    
     @Override
     public DigivolutionForm getForm()
     {
         return DigivolutionForm.ROOKIE;
     }
-
+    
     @Override
     public DigimonAttribute getAttribute()
     {
         return DigimonAttribute.VACCINE;
     }
-
+    
     @Override
     public Set<DigimonType> getType()
     {
         return Set.of(DigimonType.BIRD);
     }
-
+    
     @Override
     public DigivolutionRequirements getDigivolutionRequirements()
     {
-        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.YELLOW,2,2));
+        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.YELLOW, 2, 2));
     }
 }
