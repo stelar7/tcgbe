@@ -13,7 +13,7 @@ public class CardGenerator
     {
         int setIndex = 8;
         
-        for (int i = 1; i <= 120; i++)
+        for (int i = 1; i <= 50; i++)
         {
             String index = String.format("%03d", i);
             String card  = "BT" + setIndex + "-" + index;
