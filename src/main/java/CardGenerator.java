@@ -11,10 +11,10 @@ public class CardGenerator
 {
     public static void main(String[] args) throws IOException, URISyntaxException
     {
-        for (int i = 1; i <= 10; i++)
+        for (int i = 1; i <= 40; i++)
         {
             String index = String.format("%03d", i);
-            String card  = "BT6-" + index;
+            String card  = "BT8-" + index;
             String set   = card.split("-")[0];
             String clazz = card.replaceAll("-", "");
             
