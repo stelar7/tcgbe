@@ -81,6 +81,6 @@ public class BT2020 extends GameCard
     @Override
     public DigivolutionRequirements getDigivolutionRequirements()
     {
-        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.RED, 4, 5));
+        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.RED, 5, 4));
     }
 }

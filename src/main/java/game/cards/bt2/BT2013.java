@@ -81,6 +81,6 @@ public class BT2013 extends GameCard
     @Override
     public DigivolutionRequirements getDigivolutionRequirements()
     {
-        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.RED, 2, 3));
+        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.RED, 3, 2));
     }
 }

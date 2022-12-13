@@ -81,6 +81,6 @@ public class BT2022 extends GameCard
     @Override
     public DigivolutionRequirements getDigivolutionRequirements()
     {
-        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.BLUE, 1, 2));
+        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.BLUE, 2, 1));
     }
 }

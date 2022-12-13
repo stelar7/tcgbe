@@ -81,6 +81,6 @@ public class BT4042 extends GameCard
     @Override
     public DigivolutionRequirements getDigivolutionRequirements()
     {
-        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.YELLOW, 1, 3));
+        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.YELLOW, 3, 1));
     }
 }

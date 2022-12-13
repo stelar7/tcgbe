@@ -11,10 +11,12 @@ public class CardGenerator
 {
     public static void main(String[] args) throws IOException, URISyntaxException
     {
-        for (int i = 1; i <= 40; i++)
+        int setIndex = 8;
+        
+        for (int i = 1; i <= 120; i++)
         {
             String index = String.format("%03d", i);
-            String card  = "BT8-" + index;
+            String card  = "BT" + setIndex + "-" + index;
             String set   = card.split("-")[0];
             String clazz = card.replaceAll("-", "");
             
@@ -135,7 +137,7 @@ public class CardGenerator
         String level       = elem.get("level") == null ? "null" : elem.get("level").getAsString();
         String dp          = elem.get("power") == null ? "null" : elem.get("power").getAsString();
         String form        = (elem.get("stage") == null || elem.get("stage").getAsString().isEmpty() || elem.get("stage").getAsString().equalsIgnoreCase("baby")) ? "null" : "DigivolutionForm." + elem.get("stage").getAsString().toUpperCase().replaceAll(" ", "_").replace("-", "_");
-        String attribute   = (elem.get("attribute") == null  || elem.get("attribute").getAsString().isEmpty()) ? "null" : "DigimonAttribute." + elem.get("attribute").getAsString().toUpperCase().replaceAll(" ", "_").replace("-", "_");
+        String attribute   = (elem.get("attribute") == null || elem.get("attribute").getAsString().isEmpty()) ? "null" : "DigimonAttribute." + elem.get("attribute").getAsString().toUpperCase().replaceAll(" ", "_").replace("-", "_");
         
         StringJoiner color      = new StringJoiner(", ");
         JsonArray    colorArray = elem.get("color").getAsJsonArray();
@@ -165,11 +167,12 @@ public class CardGenerator
         {
             String digiCost  = digivolve.getAsJsonObject().get("cost").getAsString();
             String digiColor = digivolve.getAsJsonObject().get("requirements").getAsJsonObject().get("color").getAsString().toUpperCase();
-            if (digiColor.isEmpty()) {
+            if (digiColor.isEmpty())
+            {
                 break;
             }
             String digiLevel = digivolve.getAsJsonObject().get("requirements").getAsJsonObject().get("level").getAsString();
-            evolutions.add("new DigivolutionRequirement(GameCardColor." + digiColor + "," + digiCost + "," + digiLevel + ")");
+            evolutions.add("new DigivolutionRequirement(GameCardColor." + digiColor + "," + digiLevel + "," + digiCost + ")");
         }
         
         if (digivolves.size() > 0)
@@ -179,5 +182,4 @@ public class CardGenerator
         
         return content.formatted(packag, clazz, clazz, englishName, code, cardType, color.toString(), cost, level, dp, form, attribute, endType, evolveContent);
     }
-    
 }

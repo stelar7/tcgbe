@@ -81,6 +81,6 @@ public class BT8021 extends GameCard
     @Override
     public DigivolutionRequirements getDigivolutionRequirements()
     {
-        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.BLUE, 0, 2), new DigivolutionRequirement(GameCardColor.GREEN, 0, 2));
+        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.BLUE, 2, 0), new DigivolutionRequirement(GameCardColor.GREEN, 2, 0));
     }
 }

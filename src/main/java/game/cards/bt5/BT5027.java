@@ -81,6 +81,6 @@ public class BT5027 extends GameCard
     @Override
     public DigivolutionRequirements getDigivolutionRequirements()
     {
-        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.BLUE, 2, 4));
+        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.BLUE, 4, 2));
     }
 }
