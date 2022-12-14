@@ -1,13 +1,13 @@
-package game.cards.bt8;
+package game.cards.bt9;
 
 import game.basic.*;
 import game.enums.*;
 
 import java.util.Set;
 
-public class BT8041 extends GameCard
+public class BT9083 extends GameCard
 {
-    public BT8041(String uuid)
+    public BT9083(String uuid)
     {
         super(uuid);
     }
@@ -15,19 +15,19 @@ public class BT8041 extends GameCard
     @Override
     public String getJapaneseName()
     {
-        return "キュウキモン";
+        return "オメガモン：マーシフルモード";
     }
     
     @Override
     public String getEnglishName()
     {
-        return "Kyukimon";
+        return "Omnimon: Merciful Mode";
     }
     
     @Override
     public String getCardCode()
     {
-        return "BT8-041";
+        return "BT9-083";
     }
     
     @Override
@@ -39,48 +39,48 @@ public class BT8041 extends GameCard
     @Override
     public Set<GameCardColor> getColors()
     {
-        return Set.of(GameCardColor.YELLOW, GameCardColor.PURPLE);
+        return Set.of(GameCardColor.WHITE);
     }
     
     @Override
     public Integer getPlayCost()
     {
-        return 7;
+        return 15;
     }
     
     @Override
     public Integer getLevel()
     {
-        return 5;
+        return 7;
     }
     
     @Override
     public Integer getDp()
     {
-        return 9000;
+        return 15000;
     }
     
     @Override
     public DigivolutionForm getForm()
     {
-        return DigivolutionForm.ULTIMATE;
+        return DigivolutionForm.MEGA;
     }
     
     @Override
     public DigimonAttribute getAttribute()
     {
-        return DigimonAttribute.VIRUS;
+        return DigimonAttribute.VACCINE;
     }
     
     @Override
     public Set<DigimonType> getType()
     {
-        return Set.of(DigimonType.MYSTERIOUS_BEAST);
+        return Set.of(DigimonType.HOLY_WARRIOR);
     }
     
     @Override
     public DigivolutionRequirements getDigivolutionRequirements()
     {
-        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.YELLOW, 4, 3), new DigivolutionRequirement(GameCardColor.PURPLE, 4, 3));
+        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.RED, 6, 6), new DigivolutionRequirement(GameCardColor.BLUE, 6, 6));
     }
 }

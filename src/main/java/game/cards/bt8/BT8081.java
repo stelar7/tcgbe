@@ -5,9 +5,9 @@ import game.enums.*;
 
 import java.util.Set;
 
-public class BT8041 extends GameCard
+public class BT8081 extends GameCard
 {
-    public BT8041(String uuid)
+    public BT8081(String uuid)
     {
         super(uuid);
     }
@@ -15,19 +15,19 @@ public class BT8041 extends GameCard
     @Override
     public String getJapaneseName()
     {
-        return "キュウキモン";
+        return "ラセンモン：激昂モード";
     }
     
     @Override
     public String getEnglishName()
     {
-        return "Kyukimon";
+        return "Rasenmon Fury Mode";
     }
     
     @Override
     public String getCardCode()
     {
-        return "BT8-041";
+        return "BT8-081";
     }
     
     @Override
@@ -39,37 +39,37 @@ public class BT8041 extends GameCard
     @Override
     public Set<GameCardColor> getColors()
     {
-        return Set.of(GameCardColor.YELLOW, GameCardColor.PURPLE);
+        return Set.of(GameCardColor.PURPLE);
     }
     
     @Override
     public Integer getPlayCost()
     {
-        return 7;
+        return 11;
     }
     
     @Override
     public Integer getLevel()
     {
-        return 5;
+        return 6;
     }
     
     @Override
     public Integer getDp()
     {
-        return 9000;
+        return 13000;
     }
     
     @Override
     public DigivolutionForm getForm()
     {
-        return DigivolutionForm.ULTIMATE;
+        return DigivolutionForm.MEGA;
     }
     
     @Override
     public DigimonAttribute getAttribute()
     {
-        return DigimonAttribute.VIRUS;
+        return DigimonAttribute.DATA;
     }
     
     @Override
@@ -81,6 +81,6 @@ public class BT8041 extends GameCard
     @Override
     public DigivolutionRequirements getDigivolutionRequirements()
     {
-        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.YELLOW, 4, 3), new DigivolutionRequirement(GameCardColor.PURPLE, 4, 3));
+        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.PURPLE, 5, 3), new DigivolutionRequirement(GameCardColor.YELLOW, 5, 3));
     }
 }

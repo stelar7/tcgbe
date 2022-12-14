@@ -1,13 +1,13 @@
-package game.cards.bt8;
+package game.cards.bt9;
 
 import game.basic.*;
 import game.enums.*;
 
 import java.util.Set;
 
-public class BT8041 extends GameCard
+public class BT9026 extends GameCard
 {
-    public BT8041(String uuid)
+    public BT9026(String uuid)
     {
         super(uuid);
     }
@@ -15,19 +15,19 @@ public class BT8041 extends GameCard
     @Override
     public String getJapaneseName()
     {
-        return "キュウキモン";
+        return "ピラニモン";
     }
     
     @Override
     public String getEnglishName()
     {
-        return "Kyukimon";
+        return "Piranimon";
     }
     
     @Override
     public String getCardCode()
     {
-        return "BT8-041";
+        return "BT9-026";
     }
     
     @Override
@@ -39,13 +39,13 @@ public class BT8041 extends GameCard
     @Override
     public Set<GameCardColor> getColors()
     {
-        return Set.of(GameCardColor.YELLOW, GameCardColor.PURPLE);
+        return Set.of(GameCardColor.BLUE);
     }
     
     @Override
     public Integer getPlayCost()
     {
-        return 7;
+        return 6;
     }
     
     @Override
@@ -57,7 +57,7 @@ public class BT8041 extends GameCard
     @Override
     public Integer getDp()
     {
-        return 9000;
+        return 7000;
     }
     
     @Override
@@ -75,12 +75,12 @@ public class BT8041 extends GameCard
     @Override
     public Set<DigimonType> getType()
     {
-        return Set.of(DigimonType.MYSTERIOUS_BEAST);
+        return Set.of(DigimonType.SEA_ANIMAL);
     }
     
     @Override
     public DigivolutionRequirements getDigivolutionRequirements()
     {
-        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.YELLOW, 4, 3), new DigivolutionRequirement(GameCardColor.PURPLE, 4, 3));
+        return new DigivolutionRequirements(new DigivolutionRequirement(GameCardColor.BLUE, 4, 3));
     }
 }
