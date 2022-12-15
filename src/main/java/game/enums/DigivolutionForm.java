@@ -10,6 +10,7 @@ public enum DigivolutionForm
     MEGA("究極体"),
     ROOKIE("成長期"),
     ULTIMATE("完全体"),
+    UNKNOWN("不明"),
     ;
 
 

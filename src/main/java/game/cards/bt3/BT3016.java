@@ -75,7 +75,7 @@ public class BT3016 extends GameCard
     @Override
     public Set<DigimonType> getType()
     {
-        return Set.of(DigimonType.WEAPON, DigimonType.LEGEND_ARMS);
+        return Set.of(DigimonType.HOLY_SWORD, DigimonType.LEGEND_ARMS);
     }
     
     @Override
